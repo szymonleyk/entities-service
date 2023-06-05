@@ -1,6 +1,5 @@
 import { BaseModel, column, BelongsTo, belongsTo } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon'
-import Mater from './Mater'
 
 export default class Circuit extends BaseModel {
   @column({ isPrimary: true })
@@ -10,13 +9,13 @@ export default class Circuit extends BaseModel {
   public name: string
 
   @column.dateTime()
-  public installation_date: DateTime
+  public installationDate: DateTime
 
-  public is_main: boolean
-  public parent_id: number
+  @column()
+  public isMain: boolean
 
-  // @belongsTo(() => Circuit, { foreignKey: 'parent_id' })
-  // public parent: BelongsTo<typeof Circuit>
+  @column()
+  public parentId: number
 
   @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime
@@ -24,6 +23,6 @@ export default class Circuit extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
   public updatedAt: DateTime
 
-  @belongsTo(() => Mater)
-  public mater: BelongsTo<typeof Mater>
+  @belongsTo(() => Circuit, { foreignKey: 'parentId' })
+  public parent: BelongsTo<typeof Circuit>
 }
