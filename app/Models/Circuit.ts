@@ -10,13 +10,16 @@ export default class Circuit extends BaseModel {
   public name: string
 
   @column.dateTime()
-  public installation_date: DateTime
+  public installationDate: DateTime
 
-  public is_main: boolean
-  public parent_id: number
+  @column()
+  public isMain: boolean
 
-  // @belongsTo(() => Circuit, { foreignKey: 'parent_id' })
-  // public parent: BelongsTo<typeof Circuit>
+  @column()
+  public parentId: number
+
+  @column()
+  public materId: number
 
   @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime
@@ -24,6 +27,9 @@ export default class Circuit extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
   public updatedAt: DateTime
 
-  @belongsTo(() => Mater)
+  @belongsTo(() => Circuit, { foreignKey: 'parent_id' })
+  public parent: BelongsTo<typeof Circuit>
+
+  @belongsTo(() => Mater, { foreignKey: 'mater_id' })
   public mater: BelongsTo<typeof Mater>
 }

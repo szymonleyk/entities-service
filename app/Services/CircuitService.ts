@@ -1,27 +1,27 @@
-import Mater from 'App/Models/Mater'
+import Circuit from 'App/Models/Circuit'
 
-export default class MaterService {
-  public static async create(data: Partial<Mater>) {
-    return Mater.create(data)
+export default class CircuitService {
+  public static async create(data: Partial<Circuit>) {
+    return Circuit.create(data)
   }
 
   public static async findAll() {
-    return Mater.all()
+    return Circuit.all()
   }
 
   public static async findById(id: number) {
-    return Mater.findOrFail(id)
+    return Circuit.findOrFail(id)
   }
 
-  public static async update(id: number, data: Partial<Mater>) {
-    const mater = await Mater.findOrFail(id)
-    mater.merge(data)
-    await mater.save()
-    return mater
+  public static async update(id: number, data: Partial<Circuit>) {
+    const circuit = await Circuit.findOrFail(id)
+    circuit.merge(data)
+    await circuit.save()
+    return circuit
   }
 
   public static async delete(id: number) {
-    const mater = await Mater.findOrFail(id)
-    await mater.delete()
+    const circuit = await Circuit.findOrFail(id)
+    await circuit.delete()
   }
 }

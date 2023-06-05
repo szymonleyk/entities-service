@@ -8,7 +8,7 @@ export default class MatersController {
   }
 
   public async store({request, response}: HttpContextContract) {
-    const materData = request.only(['name', 'email', 'vat'])
+    const materData = request.only(['name', 'serialNumber', 'installationDate', 'siteId'])
     const mater = await MaterService.create(materData)
     return response.created(mater)
   }
@@ -19,7 +19,7 @@ export default class MatersController {
   }
 
   public async update({params, request, response}: HttpContextContract) {
-    const materData = request.only(['name', 'email', 'vat'])
+    const materData = request.only(['name', 'serialNumber', 'installationDate', 'siteId'])
     const mater = await MaterService.update(params.id, materData)
     return response.ok(mater)
   }
