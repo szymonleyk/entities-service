@@ -8,7 +8,7 @@ export default class CircuitsController {
   }
 
   public async store({request, response}: HttpContextContract) {
-    const circuitData = request.only(['name', 'installation_date', 'is_main', 'parent_id'])
+    const circuitData = request.only(['name', 'installationDate', 'isMain', 'parentId', 'materId'])
     const circuit = await CircuitService.create(circuitData)
     return response.created(circuit)
   }
@@ -19,7 +19,7 @@ export default class CircuitsController {
   }
 
   public async update({params, request, response}: HttpContextContract) {
-    const circuitData = request.only(['name', 'installation_date', 'is_main', 'parent_id'])
+    const circuitData = request.only(['name', 'installationDate', 'isMain', 'parentId', 'materId'])
     const circuit = await CircuitService.update(params.id, circuitData)
     return response.ok(circuit)
   }
