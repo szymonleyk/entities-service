@@ -8,7 +8,7 @@ export default class SitesController {
   }
 
   public async store({request, response}: HttpContextContract) {
-    const siteData = request.only(['name', 'email', 'vat'])
+    const siteData = request.only(['name', 'coordinates', 'address', 'postCode', 'customerId'])
     const site = await SiteService.create(siteData)
     return response.created(site)
   }
@@ -19,7 +19,7 @@ export default class SitesController {
   }
 
   public async update({params, request, response}: HttpContextContract) {
-    const siteData = request.only(['name', 'email', 'vat'])
+    const siteData = request.only(['name', 'coordinates', 'address', 'postCode', 'customerId'])
     const site = await SiteService.update(params.id, siteData)
     return response.ok(site)
   }

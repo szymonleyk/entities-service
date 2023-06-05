@@ -17,7 +17,10 @@ export default class Site extends BaseModel {
   public address: string
 
   @column()
-  public post_code: string
+  public postCode: string
+
+  @column()
+  public customerId: number
 
   @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime
@@ -25,7 +28,7 @@ export default class Site extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
   public updatedAt: DateTime
 
-  @belongsTo(() => Customer)
+  @belongsTo(() => Customer, { foreignKey: 'customerId' })
   public customer: BelongsTo<typeof Customer>
   
   @hasMany(() => Mater)
