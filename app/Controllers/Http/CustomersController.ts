@@ -10,21 +10,14 @@ export default class CustomersController {
   }
 
   public async store({ request, response }: HttpContextContract) {
-    const customerData = request.only(['name', 'email', 'vat'])
-    const customer = await Customer.create(customerData)
+    const { customer, sites } = request.only(['customer', 'sites'])
 
-    const sitesData = request.input('sites', [])
-    const sites: Site[] = []
+    const createdCustomer = await Customer.create(customer)
 
-    for (const siteData of sitesData) {
-      const site = new Site()
-      site.fill(siteData)
-      sites.push(site)
-    }
+    const createdSites = await Site.createMany(sites)
+    await createdCustomer.related('sites').saveMany(createdSites)
 
-    await customer.related('sites').saveMany(sites)
-
-    return response.created({ customer, sites })
+    return response.created({ customer: createdCustomer, sites: createdSites })
   }
 
   public async show({ params, response }: HttpContextContract) {
